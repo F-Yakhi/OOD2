@@ -80,3 +80,81 @@ CRP
 قبل: زمانی که می‌خواستیم یکی از رفتارهای سیستم رو تغییر بدیم، مجبور می‌شدیم چند 
  بخش دیگه که مستقیم ربطی نداشتن را هم دستکاری کنیم و این باعث شلوغی و وابستگی زیاد می‌شد.
 بعد: بعد از استفاده از الگوهای Strategy، State و Factory، هر رفتار توی کلاس‌های مربوط به خودش جدا شد. هر تغییری فقط در همان بخش انجام می‌شود و بقیه‌ی سیستم تحت تأثیر قرار نمی‌گیرد، بنابراین اصل CRP خیلی بهتر رعایت شده..
+
+
+
+`mermaid
+classDiagram
+
+class TicketFactory {
+  +createTicket(type) TicketContext
+}
+
+class TicketContext {
+  -TicketState state
+  -ReceiveStrategy receiveStrategy
+  -AssignStrategy assignStrategy
+  -ResponseStrategy responseStrategy
+  +process()
+  +setState(state)
+}
+
+class TicketState {
+  <<interface>>
+  +handle(context)
+}
+
+class NewState
+class AssignedState
+class InProgressState
+class ResolvedState
+class ClosedState
+
+TicketState <|.. NewState
+TicketState <|.. AssignedState
+TicketState <|.. InProgressState
+TicketState <|.. ResolvedState
+TicketState <|.. ClosedState
+
+class ReceiveStrategy {
+  <<interface>>
+  +receive()
+}
+
+class AssignStrategy {
+  <<interface>>
+  +assign()
+}
+
+class ResponseStrategy {
+  <<interface>>
+  +respond()
+}
+
+class WebReceiveStrategy
+class EmailReceiveStrategy
+
+class BugAssignStrategy
+class QuestionAssignStrategy
+
+class BugResponseStrategy
+class GenericResponseStrategy
+
+ReceiveStrategy <|.. WebReceiveStrategy
+ReceiveStrategy <|.. EmailReceiveStrategy
+
+AssignStrategy <|.. BugAssignStrategy
+AssignStrategy <|.. QuestionAssignStrategy
+
+ResponseStrategy <|.. BugResponseStrategy
+ResponseStrategy <|.. GenericResponseStrategy
+
+TicketContext --> TicketState
+TicketContext --> ReceiveStrategy
+TicketContext --> AssignStrategy
+TicketContext --> ResponseStrategy
+
+TicketFactory ..> TicketContext
+TicketFactory ..> ReceiveStrategy
+TicketFactory ..> AssignStrategy
+TicketFactory ..> ResponseStrategy
