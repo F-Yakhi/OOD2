@@ -30,10 +30,10 @@ WebReceiveStraregy, EmailReceiveStrategy:
  کلاس های دریافت تیکت بسته به نوع کانال(و اینترفیس مربوطه). 
 BugAssignStrategy, 
 QuestionAssignStrategy: 
-کلاس های تخصیص تیکت بسته به نوع تیکت(و اینترفیس مربوطه)
+کلاس های تخصیص تیکت بسته به نوع تیکت(و اینترفیس مربوطه).
 BugResponseStrategy, 
 GenericResponseStrategy: 
-کلاسهای پاسخدهی بسته به نوع تیکت (و اینترفیس مربوطه) 
+کلاسهای پاسخدهی بسته به نوع تیکت (و اینترفیس مربوطه). 
 کلاس generic برای تمام موارد غیر از bug است.
 
 الگوی factory: 
